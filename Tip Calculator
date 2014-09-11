@@ -1,0 +1,17 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Sep  2 09:26:43 2014
+
+@author: Nicholas
+"""
+
+bill= float(input("what is your bill? "))
+tax=6.25/100
+tip=20/100
+
+bill=bill+bill*tax
+total=bill+bill*tip
+print("%.2f" % total)
+import time
+now= time.asctime()
+print (now)
