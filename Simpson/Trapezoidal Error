@@ -1,0 +1,80 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Sep 25 08:08:06 2014
+
+@author: Nicholas
+"""
+
+#Error Analysis
+
+# Begins with Taylor Series
+# See slides because I definitely zoned out. 
+    #error=1/12h^2[f'(a)-f'(b)]
+
+# Trapezoidal 
+import math as m
+
+def f(x):
+    return x**4-2*x**2-1
+a=0.0
+b=2.0
+N=500
+n=1000
+
+S=0.5*(f(a)+f(b))
+B=0.5*(f(a)+f(b))
+step = (b-a)/N
+step_again=(b-a)/n
+
+for counter in range(1, N):
+    new_x = a+counter*step
+    S += f(new_x)
+    
+S *= step 
+
+for counter in range(1, n):
+    new_y = a+counter*step_again
+    B += f(new_y)
+    
+B *= step_again 
+
+
+
+#Error Crap
+
+Error=m.fabs((1/3)*(B-S))
+
+print ("The integral equals: %5.16f" %S)
+print ("The number of steps: %d:" %N)
+print ("The error is: %5.16f" %Error)
+
+# Simpson
+
+
+Simp = f(a)+f(b) 
+SimpA = f(a)+f(b)
+
+for counter in range(1, N): 
+    new_z=a+counter*step 
+    if counter%2==0: 
+        Simp += 2.0*f(new_z) 
+    else: 
+        Simp += 4.0*f(new_z) 
+
+Simp = step*Simp/3.0 
+
+for counter in range(1, n): 
+    new_w=a+counter*step_again
+    if counter%2==0: 
+        SimpA += 2.0*f(new_w) 
+    else: 
+        SimpA += 4.0*f(new_w) 
+
+SimpA = step_again*SimpA/3.0 
+
+ErrorSimps=m.fabs((SimpA-Simp)/15)
+
+
+print ("The Integral is %f: " %Simp) 
+print ("Error %5.16f." %ErrorSimps)
+
